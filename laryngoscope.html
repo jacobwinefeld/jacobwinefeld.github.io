@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Robotic laryngoscopy | Jacob Winefeld</title><meta name="description" content="An autonomous robotic system for diagnostic flexible laryngoscopy."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
+<body class="inner">
+<nav class="bar"><a href="index.html">Jacob Winefeld</a><a href="index.html#projects">All projects</a></nav>
+<main class="page">
+<h1 class="ptitle">Robotic laryngoscopy</h1>
+<dl class="meta"><div><dt>Role</dt><dd>Undergraduate Researcher, medical robot design and characterization</dd></div><div><dt>Where</dt><dd>UCLA Biomechatronics Lab, with UCLA Head &amp; Neck Surgery</dd></div><div><dt>When</dt><dd>Dec 2025 - Present</dd></div><div><dt>Skills</dt><dd><ul class="chips"><li>ROS2</li><li>Python</li><li>ArUco tracking</li><li>Load cell testing</li><li>Dynamixel servos</li><li>Onshape</li></ul></dd></div></dl>
+
+<figure class="vid"><video controls muted playsinline preload="metadata"><source src="images/laryngoscope-demo.mp4#t=0.5" type="video/mp4"></video><figcaption>The robot navigating a phantom, with the live scope view inset.</figcaption></figure>
+
+<section class="sec">
+<h2>The problem</h2>
+<p>Diagnostic flexible laryngoscopy (DFL) is the first step in diagnosing voice disorders, airway obstructions, and head and neck cancer. An ear, nose, and throat (ENT) specialist typically performs it, passing an endoscope (a thin tube with a camera at its tip) through the nose to view the throat and vocal cords. More than 1.2 million DFLs are done each year in the US, but specialist access is limited: the average wait for an ENT appointment is 51 days, and 90% of ENTs practice in urban areas.</p>
+</section>
+
+<section class="sec row">
+<figure><img src="images/laryngoscope.jpg" alt="Render of the robotic laryngoscope system with a phantom head" loading="lazy"><figcaption>Render of the full system with a phantom head.</figcaption></figure>
+<div>
+
+<p>To solve this problem, I’m working with engineers at the UCLA Biomechatronics Lab and surgeons from UCLA Head and Neck Surgery to build an autonomous robotic DFL system. It is designed for non-specialist staff in primary or urgent care to load a standard commercial laryngoscope into the robot, which then navigates the nasal cavity on its own and records footage for an ENT specialist to review later. Three Dynamixel servo motors reproduce what a clinician does by hand: insertion and retraction, axial roll, and distal tip pitch.</p>
+</div>
+</section>
+
+<section class="sec row">
+<figure><img src="images/lary-3dof-closeup.jpg" alt="Close-up of the three degrees of freedom" loading="lazy"><figcaption>The three degrees of freedom: insertion and retraction along a belt-driven linear rail, axial roll of the scope, and tip pitch through a mechanism that turns the scope’s scroll wheel.</figcaption></figure>
+<div>
+<h2>My role</h2>
+<p>I led the mechanical design, wrote the calibration procedure and safety limits, and ran the system’s force and durability testing. On the mechanical side, I defined the three degrees of freedom from concept, including how each would engage the scope and the speeds, ranges of motion, and forces it would need, then sized the motors, selected the belt-driven linear rail, and designed nearly all custom parts: a clip-on scope mount, a mechanism that engages the scope’s scroll wheel to control tip pitch, motor mounts, and an enclosure with an E-stop. My calibration procedure finds each axis’s hard stops and sets software limits on motor position, velocity, current, and temperature.</p>
+</div>
+</section>
+
+<section class="sec">
+<div class="row"><figure><img src="images/lary-loadcell-setup.jpg" alt="Labeled force testing setup with the load cell" loading="lazy"><figcaption>Force testing setup, shown here for the rotation test. A load cell was mounted in three configurations to measure peak contact force during insertion, rotation, and pitch, each at maximum software-limited speed.</figcaption></figure><div>
+<h2>Testing and results</h2>
+<p>For our FDA and IRB submissions, I measured the system's positional and velocity limits, then used an ATI Nano 25 six-axis load cell to measure peak tip contact forces at maximum software-limited speed. Across 77 contacts, mean peaks were 0.26 N for insertion, 0.24 N for roll, and 0.47 N for pitch, with a maximum of 0.85 N. That is over seven times lower than published forces for damaging the most fragile bone in the nasal region.</p></div></div>
+<div class="row"><figure><a href="images/lary-hysteresis.png"><img src="images/lary-hysteresis.png" alt="Tip angle versus motor position at six amplitudes, with backlash versus amplitude inset" loading="lazy"></a><figcaption>Figure 1: Tip angle versus motor position at six amplitudes (±10° to ±90°). Arrows show direction of actuation, and the gap at 0° is the backlash. Inset: backlash, in degrees of scroll wheel rotation, versus tip amplitude (R² = 0.991).</figcaption></figure><div><p>To test durability, I ran all three axes through their full range for one hour, about 900 cycles, which simulates worst-case loading from roughly 30 procedures. No mechanical failures occurred, and the motors that drive insertion and rotation showed virtually no drift or variance in their position, velocity, and current profiles.</p><p>Tip pitch, on the other hand, works through tendons inside the laryngoscope our robot holds, so motor position does not directly give tip angle. I used an ArUco marker and webcam to measure tip angle independently of the motor and characterized the system’s hysteretic behavior over both short and long time scales. Short term, I measured hysteresis loops at six amplitudes from ±10° to ±90° (Figure 1). Backlash grew linearly with amplitude, from 4.2° to 7.3° of scroll wheel travel (R² = 0.991), meaning it can be compensated for in software.</p></div></div>
+<div class="row"><figure><a href="images/lary-drift.png"><img src="images/lary-drift.png" alt="Motor position and tip angle over one hour of cycles, shaded from first to last cycle" loading="lazy"></a><figcaption>Figure 2: Motor position (red) and tip angle (blue) over 906 cycles, shaded from Cycle 1 (light) to Cycle 906 (dark). Tip amplitude drops while the motor profile stays stable.</figcaption></figure><div><p>Long term, the same hysteretic behavior worsened over the hour (Figure 2). Tip range of motion fell to 51% of its starting value, the delay between motor and tip doubled from 0.21 s to 0.43 s, and RMS motor current rose 64%. To find the source, I swapped the motor and the trend remained, then ran without the scope and it disappeared. That isolated the wear to the commercial scope’s tendon mechanism, not our robot. The robot held up for the full hour, but the scope did not: in cadaver work we replace it about every 10 procedures. In patients this does not come up, since the scope is single-use clinically.</p></div></div>
+</section>
+
+<section class="sec">
+<h2>Autonomy and status</h2>
+<p>For autonomous navigation, we developed a computer vision model trained on nasal endoscopy video from 250 patients that identifies anatomical features and steers the robot toward the center of the airway. The system has been tested in phantom models, shown in the video, and in 10 fresh cadaveric specimens, successfully reaching the pharynx in all 10. I am a co-inventor on the provisional patent <i>Robotic Platform for Flexible Endoscopy</i> and a co-author on an in-progress manuscript on the cadaver results. The project has won $69K from several UCLA business competitions, which will go toward launching a startup.</p>
+</section>
+
+<nav class="pn"><a href="baja.html"><span>Previous</span>Baja steering and suspension</a><a href="spacex.html"><span>Next</span>SpaceX Starlink antenna structures</a></nav>
+</main>
+<script src="lightbox.js"></script>
+<footer><p>jacob.winefeld@gmail.com</p></footer>
+</body></html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Robotic hand and Opti tactile sensor | Jacob Winefeld</title><meta name="description" content="Redesigned a 16-servo robotic hand and built an open-source tactile sensor housing."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
+<body class="inner">
+<nav class="bar"><a href="index.html">Jacob Winefeld</a><a href="index.html#projects">All projects</a></nav>
+<main class="page">
+<h1 class="ptitle">Robotic hand and Opti tactile sensor</h1>
+<dl class="meta"><div><dt>Role</dt><dd>Undergraduate Researcher, robotic hand and tactile sensor design</dd></div><div><dt>Where</dt><dd>UCLA Biomechatronics Lab</dd></div><div><dt>When</dt><dd>Jun 2025 - Dec 2025</dd></div><div><dt>Skills</dt><dd><ul class="chips"><li>CAD PDM</li><li>3D printing</li><li>Destructive testing</li><li>Elastomer molding</li></ul></dd></div></dl>
+<figure class="hero"><img src="images/robotic-hand.jpg" alt="Four-digit robotic hand with 16 Dynamixel servos" loading="lazy"></figure>
+<section class="sec">
+<h2>Overview</h2>
+<p>The <a href="https://biomechatronics.ucla.edu/" target="_blank" rel="noopener">UCLA Biomechatronics Lab</a> is focused on integrating the sense of touch in robots, collecting haptic information from tactile sensors mounted on the robot. I worked on the end effector of the lab’s 7-DOF robotic arm, a four-digit hand driven by 16 Dynamixel servos, and on the vision-based tactile sensor at the end of each finger.</p>
+</section>
+
+<section class="sec">
+<h2>My role</h2>
+<div class="duo">
+<figure style="flex-grow: 1.055"><img src="images/robotic-hand-cad.png" alt="CAD model of the four-digit robotic hand with a tactile sensor on each fingertip" loading="lazy"><figcaption>CAD model of the four-digit hand with 16 Dynamixel servos and an <i>Opti</i> tactile sensor on each fingertip.</figcaption></figure>
+<figure style="flex-grow: 1.144"><img src="images/opti-exploded-view.png" alt="Exploded view of the Opti tactile sensor, labeling the fingerpad, LED assembly, and housing assembly parts" loading="lazy"><figcaption>Exploded view of the <i>Opti</i> sensor: housing, camera and lens, LED assembly, and molded silicone fingerpad.</figcaption></figure>
+</div>
+<p>I designed the housing, wiring, and illumination system for <i>Opti</i>, a vision-based tactile sensor for training robot manipulation policies. Optical flow from its speckled silicone fingerpad yields divergence (local contact pressure) and curl (planar torque). A policy trained on the raw image together with these signals sorted blocks by weight with 86% accuracy, versus 38% from raw images alone, and resolved weight differences down to 13.8 g. I made its exploded-view diagram (above), wrote the fabrication guide for the open-source release, and am a co-author on a paper in preparation.</p>
+<p>I also improved the hand’s strength and wiring. Thicker screw-hole margins, corner gussets, and fillets on weak edges increased the strength of a bracket that had failed in earlier versions by 75%. Cable hooks and organizers hid loose wires without limiting range of motion, and a custom electrical expansion board removed the need for soldering and twist-on connectors. I managed CAD releases in PDM and wrote the technical document and bill of materials.</p>
+</section>
+
+<section class="sec row">
+<figure><img src="images/robotic-hand-strength-chart.png" alt="Bar chart of bracket break load for each material and infill setting, with PLA shaded" loading="lazy"><figcaption>Bracket break load by material and infill. PLA, used in the hand, is shaded.</figcaption></figure>
+<div>
+<h2>Testing and results</h2>
+<p>To evaluate the redesign, I destructively tested the bracket by loading it the same way it had failed in repeated teleoperation experiments. The new design broke at 37.6 lb, compared with 21.5 lb for the previous design, both printed in PLA at 100% infill. I then compared six materials and three infill patterns. PA6-CF (carbon fiber nylon) was the strongest, but PLA was second strongest at 50% and 100% infill and the best value for its cost and ease of printing, so we used it for the hand. In PLA, 3D honeycomb was strongest at 15% infill and grid at 50%, but infill density mattered more than pattern: 100% infill was 29% stronger than 50%, while the best and worst patterns at the same density differed by under 20%. The results became the lab’s standard for 3D printing.</p>
+</div>
+</section>
+
+<nav class="pn"><a href="spacex.html"><span>Previous</span>SpaceX Starlink antenna structures</a><a href="baja.html"><span>Next</span>Baja steering and suspension</a></nav>
+</main>
+<script src="lightbox.js"></script>
+<footer><p>jacob.winefeld@gmail.com</p></footer>
+</body></html>

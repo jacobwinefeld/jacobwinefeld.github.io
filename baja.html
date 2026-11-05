@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Baja steering and suspension | Jacob Winefeld</title><meta name="description" content="Custom rack-and-pinion steering and the team's first data acquisition system."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="style.css"></head>
+<body class="inner">
+<nav class="bar"><a href="index.html">Jacob Winefeld</a><a href="index.html#projects">All projects</a></nav>
+<main class="page">
+<h1 class="ptitle">Baja steering and suspension</h1>
+<dl class="meta"><div><dt>Role</dt><dd>Steering Project Engineer (Sep 2025 - Jun 2026), Suspension Testing &amp; Analysis Engineer (Sep 2026 - Present)</dd></div><div><dt>Where</dt><dd>Bruin Racing Baja SAE</dd></div><div><dt>When</dt><dd>Sep 2025 - Present</dd></div><div><dt>Skills</dt><dd><ul class="chips"><li>DAQ</li><li>Strain gauges</li><li>IMU</li><li>Fusion CAM</li><li>SolidWorks</li><li>FEA</li><li>Welding</li></ul></dd></div></dl>
+<figure class="hero"><img src="images/baja-car.jpg" alt="The Bruin Racing Baja SAE vehicle at competition"></figure>
+
+<section class="sec">
+<h2>Overview</h2>
+<p>Baja SAE is a collegiate competition where student teams design, build, and race a one-seat off-road vehicle. I work on steering and suspension for Bruin Racing at UCLA. I joined in 2024 on the Driver Interface subteam, designed and built the steering system last year, and now lead suspension testing and analysis.</p>
+</section>
+
+<section class="sec row">
+<figure><img src="images/baja-daq-diagram.svg" alt="Diagram of the front left corner with sensor locations and the signal path from the sensors to the ESP32 and analysis outputs" loading="lazy"><figcaption>Data acquisition plan, showing sensor locations on the front left corner (strain gauges on the tie rod and lower A-arm, a shock potentiometer, and an IMU at the chassis center of gravity) and the signal path from the sensors to the ESP32 and the analysis outputs.</figcaption></figure>
+<div>
+<h2>Suspension and steering data acquisition</h2>
+<p>This year I am building a data acquisition system for the suspension and steering so that design and tuning decisions are data-driven. An ESP32 logs strain gauges on the tie rod (quarter bridge) and lower A-arm (half bridge), shock potentiometers, and a 6-axis IMU at the chassis center of gravity across impact, bump, cornering and braking tests. The gauges measure the real tie rod and A-arm loads, which replace last year’s shear pin estimate (described below) as the input for FEA on the steering rack and A-arms. The potentiometers and IMU record suspension travel and vehicle acceleration. Using the car’s corner mass, unsprung mass, spring rates, damper curves and suspension geometry, I plan to build a kinematic model that resolves those signals into loads in the shock, A-arm and tie rod, and check it against the gauge data. Once validated, the same data will guide shock tuning (preload, rebound, crossover) and suspension setup (ride height, camber), replacing legacy settings.</p>
+</div>
+</section>
+
+<section class="sec row pair">
+<div class="stack">
+<figure><img src="images/baja-steering-cad.jpg" alt="CAD model of the custom rack-and-pinion steering system" loading="lazy"><figcaption>CAD model of the custom rack-and-pinion design</figcaption></figure>
+<figure><img src="images/baja-steering-testing-setup.png" alt="Sketch and free body diagram of the shear pin tie rod beside a photo of the pinned tie rod on the car" loading="lazy"><figcaption>Shear pin test setup: sketch with free body diagram (left) and the pinned tie rod on the car (right).</figcaption></figure>
+<figure class="vid"><video controls muted playsinline preload="metadata" poster="images/baja-impact-poster.jpg"><source src="images/baja-impact.mp4" type="video/mp4"></video><figcaption>Video of a frontal impact test run at maximum steering angle with the shear pin tie rod installed.</figcaption></figure>
+</div>
+<div class="stack">
+<div>
+<h2>Steering rack</h2>
+<p>I led the design and manufacturing of the team’s first fully custom rack-and-pinion steering system, with a 7/8" 4340 steel rack and an aluminum housing. Travel, eye-to-eye length and mounting locations were customized to our vehicle, which reduced weight. I measured the maximum comfortable lock-to-lock steering wheel rotation (200°) and set the rack travel and ratio to match, which cut steering effort by 18%. A spacer on the rack shaft sets a hard stop against the housing, replacing the previous design’s zip-tied rubber boot, and a single-bolt clevis made it easy to adjust and service. The rack was mounted on both sides to reduce bending loads. There were zero failures across both competitions, and steering wheel backlash measured 6° and stayed stable across the full season.</p>
+</div>
+<div>
+<h2>Steering load testing and analysis</h2>
+<p>To find the worst-case load on the steering system, I cut a tie rod and welded an internal rod to one side, with the other side held by a shear pin. I ran impacts at maximum steering angle with pins of different diameters, and the smallest pin that did not shear gave the tie rod axial force of about 680 lb. I used that force for hand calculations and FEA on rack bending, which validated the 7/8" rack size with about 40% yield safety margin. I also used spring scale measurements to drive FEA on pinion-on-rack gear tooth stresses and steering column torsion, which let us downsize the column wall thickness.</p>
+</div>
+</div>
+</section>
+
+<nav class="pn"><a href="hand-tactile.html"><span>Previous</span>Robotic hand and Opti tactile sensor</a><a href="laryngoscope.html"><span>Next</span>Robotic laryngoscopy</a></nav>
+</main>
+<script src="lightbox.js"></script>
+<footer><p>jacob.winefeld@gmail.com</p></footer>
+</body></html>
